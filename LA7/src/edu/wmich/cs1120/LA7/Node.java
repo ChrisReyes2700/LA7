@@ -2,30 +2,32 @@ package edu.wmich.cs1120.LA7;
 
 public class Node<E> implements INode<E>{
 
-	Node(E dataValue) {
-		
+	private Node<E> next; 
+	private E data;
+	
+	public Node(E dataValue) {
+		data = dataValue;
+		next = null;
 	}				
 	
-	Node(E dataValue, Node<E> nextNode) {
-		
+	public Node(E dataValue, Node<E> nextNode) {
+		data = dataValue;
+		next = nextNode;
 	}
 
 	@Override
 	public E getData() {
-		// TODO Auto-generated method stub
-		return null;
+		return data;
 	}
 
 	@Override
 	public Node<E> getNext() {
-		// TODO Auto-generated method stub
-		return null;
+		return next;
 	}
 
 	@Override
 	public void setNext(Node<E> next) {
-		// TODO Auto-generated method stub
-		
+		this.next = next;
 	}
 
 
