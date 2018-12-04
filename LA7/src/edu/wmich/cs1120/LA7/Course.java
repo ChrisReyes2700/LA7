@@ -27,4 +27,30 @@ public class Course implements ICourse {
 			System.out.println(students.get(i));
 		}
 	}
+	
+	//Getters and Setters
+	public String getCourseDept() {
+		return this.courseDept;
+	}
+	
+	public int getCourseNumber() {
+		return this.courseNumber;
+	}
+	
+	public int getCapacity() {
+		return this.capacity;
+	}
+	
+	public void setCourseDept(String courseDept) {
+		this.courseDept = courseDept;
+	}
+	
+	public void setCourseNumber(int courseNumber) {
+		this.courseNumber = courseNumber;
+	}
+	
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+	
 }

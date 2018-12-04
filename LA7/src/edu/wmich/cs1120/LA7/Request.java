@@ -33,7 +33,7 @@ public class Request {
 	// student’s level – senior, junior, etc.
 	public int yearsFromGraduation(String level) {
 		switch (level) {
-		case "senoir":
+		case "senior":
 			return 0;
 		case "junior":
 			return 1;

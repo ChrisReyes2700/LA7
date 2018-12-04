@@ -16,11 +16,11 @@ public class LinkedList<E> {
 	// Add object received to the linked list if he/she has the priority.
 	public void add(E item) {
 		if (isEmpty()) {
-			Node newNode = new Node(item);
+			Node<E> newNode = new Node<>(item);
 			head = newNode;
 			tail = head;
 		} else {
-			tail.setNext(new Node(item));
+			tail.setNext(new Node<E>(item));
 			tail = tail.getNext();
 		}
 	}
@@ -36,7 +36,7 @@ public class LinkedList<E> {
 	// Return number of elements in the list.
 	public int size() {
 		int count = 0;
-		Node headCopy = head;
+		Node<E> headCopy = head;
 
 		while (headCopy != null) {
 			count++;
