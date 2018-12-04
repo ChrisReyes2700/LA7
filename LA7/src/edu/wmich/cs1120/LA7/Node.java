@@ -20,6 +20,9 @@ public class Node<E> implements INode<E>{
 		return data;
 	}
 
+	public void setData(E data) {
+		this.data = data; 
+	}
 	@Override
 	public Node<E> getNext() {
 		return next;

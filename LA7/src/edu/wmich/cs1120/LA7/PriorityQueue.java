@@ -16,19 +16,70 @@ public class PriorityQueue<E> {
 	// Add object received to the priority queue taking into consideration the rules
 	// governing priority.
 	public void enqueue(E data) {
-		Node<E> node = new Node<E>(data);
-		rear.setNext(rear);
-		rear = node;
+		boolean sorted = false;
+		Node<E> rearcopy = rear;
+		rear = new Node<E>(data);
+		rear.setNext(rearcopy);
+
 		
-		
-		//TO DO add priority sorting system
-		
+		//I think this works, have not tested however
+		Node<E> sortingNode = rear;
+		while (sorted = false) {
+			if (((Request) sortingNode.getData()).isSameDept() < ((Request) sortingNode.getNext().getData())
+					.isSameDept()) {
+				// If added student does not have course priority over next then
+				if (((Request) sortingNode.getData()).getYearsToGraduate() > ((Request) sortingNode.getNext().getData())
+						.getYearsToGraduate()) {
+					// If added student does not have years to graduate priority over next then
+					if (((Request) sortingNode.getData()).getGPA() < ((Request) sortingNode.getNext().getData())
+							.getGPA()) {
+						// If added student does not have GPA priority over next then
+						sorted = true;
+					} else {
+						//Swaps the data held within the nodes, updated reference to rear if needed
+						E temp = sortingNode.getNext().getData();	
+						if (rear == sortingNode) {
+							rear.setData(temp);
+						}
+						sortingNode.getNext().setData(sortingNode.getData());
+						sortingNode.setData(temp);
+						sortingNode = sortingNode.getNext();
+					}
+				} else {
+					E temp = sortingNode.getNext().getData();
+					if (rear == sortingNode) {
+						rear.setData(temp);
+					}
+					sortingNode.getNext().setData(sortingNode.getData());
+					sortingNode.setData(temp);
+					sortingNode = sortingNode.getNext();
+				}
+			} else {
+				E temp = sortingNode.getNext().getData();
+				if (rear == sortingNode) {
+					rear.setData(temp);
+				}
+				sortingNode.getNext().setData(sortingNode.getData());
+				sortingNode.setData(temp);
+				sortingNode = sortingNode.getNext();
+			}
+		}
+
 	}
 
 	// Remove the next object to be processed from the priority queue.
 	public E dequeue() {
-		
-		return front.getData();
+		Node<E> rearCopy = rear;
+		Node<E> frontCopy = front;
+
+		while (rearCopy.getNext() != front) {
+			rearCopy = rearCopy.getNext();
+		}
+
+		front = rearCopy;
+		front.setNext(null);
+
+		return frontCopy.getData();
 	}
 
 	// Print the contents of the queue

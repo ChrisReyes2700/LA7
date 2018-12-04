@@ -8,7 +8,10 @@ public class Request {
 	private String courseDept;
 	private int courseNumber;
 	private double[][] GPA_Array;
-
+	private double GPA;
+	private int yearsToGraduate;
+	private int sameDept = 0;	//1 = true 0 = false for comparing in priorityqueue
+	
 	// Constructor
 	public Request(String studentName, String studentDept, String studentLevel, String courseDept, int courseNumber,
 			double[][] GPA_Array) {
@@ -18,6 +21,11 @@ public class Request {
 		this.courseDept = courseDept;
 		this.courseNumber = courseNumber;
 		this.GPA_Array = GPA_Array;
+		GPA = GPA_Cal(GPA_Array);
+		setYearsToGraduate(yearsFromGraduation(studentLevel));
+		if (studentDept == courseDept) {
+			sameDept = 1;
+		}
 	}
 
 	// Returns number of years to graduation (0 for seniors, 1 for juniors etc.).
@@ -97,6 +105,30 @@ public class Request {
 
 	public void setGPA_Array(double[][] gPA_Array) {
 		GPA_Array = gPA_Array;
+	}
+
+	public double getGPA() {
+		return GPA;
+	}
+
+	public void setGPA(double gPA) {
+		GPA = gPA;
+	}
+
+	public int getYearsToGraduate() {
+		return yearsToGraduate;
+	}
+
+	public void setYearsToGraduate(int yearsToGraduate) {
+		this.yearsToGraduate = yearsToGraduate;
+	}
+
+	public int isSameDept() {
+		return sameDept;
+	}
+
+	public void setSameDept(int sameDept) {
+		this.sameDept = sameDept;
 	}
 
 }
