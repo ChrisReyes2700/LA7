@@ -18,10 +18,10 @@ public class Course implements ICourse {
 
 	@Override
 	public boolean isFull() {
-		if (students.size() < capacity)
-			return false;
-		else
+		if (capacity == 0)
 			return true;
+		else
+			return false;
 	}
 
 	@Override

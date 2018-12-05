@@ -16,7 +16,6 @@ public class PriorityQueue<E extends Comparable<E>> {
 	// Add object received to the priority queue taking into consideration the rules
 	// governing priority.
 	public void enqueue(E data) {
-		boolean sorted = false;
 		Node<E> ref = front;
 		Node<E> insert = new Node<E>(data);
 		
@@ -43,17 +42,16 @@ public class PriorityQueue<E extends Comparable<E>> {
 		else if(insert.getData().compareTo(ref.getData()) == 1) {
 			insert.setNext(ref);
 			front = insert;
-			sorted = true;
 		}
 		//insert is same priority as front
 		else if(insert.getData().compareTo(ref.getData()) == 0) {
 			insert.setNext(ref.getNext());
 			ref.setNext(insert);
-			sorted = true;
 		}
 		//insert is lower priority than front
 		else if(insert.getData().compareTo(ref.getData()) == -1) {
 			
+			boolean sorted = false;
 			//loop until rear is next node
 			while(!sorted && ref.getNext() != rear) {
 				//insert is higher priority than next ref node
@@ -94,63 +92,13 @@ public class PriorityQueue<E extends Comparable<E>> {
 				//error, no other cases
 			}
 		}
-		
-		
-		/**
-		//I think this works, have not tested however
-		Node<E> sortingNode = rear;
-		while (sorted = false) {
-			if (((Request) sortingNode.getData()).isSameDept() < ((Request) sortingNode.getNext().getData())
-					.isSameDept()) {
-				// If added student does not have course priority over next then
-				if (((Request) sortingNode.getData()).getYearsToGraduate() > ((Request) sortingNode.getNext().getData())
-						.getYearsToGraduate()) {
-					// If added student does not have years to graduate priority over next then
-					if (((Request) sortingNode.getData()).getGPA() < ((Request) sortingNode.getNext().getData())
-							.getGPA()) {
-						// If added student does not have GPA priority over next then
-						sorted = true;
-					} else {
-						//Swaps the data held within the nodes, updated reference to rear if needed
-						E temp = sortingNode.getNext().getData();	
-						if (rear == sortingNode) {
-							rear.setData(temp);
-						}
-						sortingNode.getNext().setData(sortingNode.getData());
-						sortingNode.setData(temp);
-						sortingNode = sortingNode.getNext();
-					}
-				} else {
-					E temp = sortingNode.getNext().getData();
-					if (rear == sortingNode) {
-						rear.setData(temp);
-					}
-					sortingNode.getNext().setData(sortingNode.getData());
-					sortingNode.setData(temp);
-					sortingNode = sortingNode.getNext();
-				}
-			} else {
-				E temp = sortingNode.getNext().getData();
-				if (rear == sortingNode) {
-					rear.setData(temp);
-				}
-				sortingNode.getNext().setData(sortingNode.getData());
-				sortingNode.setData(temp);
-				sortingNode = sortingNode.getNext();
-			}
-		}
-		
-		**/
-		
-		
-
 	}
 
 	// Remove the next object to be processed from the priority queue.
 	public E dequeue() {
 		Node<E> rearCopy = rear;
 		Node<E> frontCopy = front;
-
+		
 		front = front.getNext();
 		//in case of one node, sets front to null and rear to front
 		if(frontCopy == rearCopy) {
@@ -163,9 +111,16 @@ public class PriorityQueue<E extends Comparable<E>> {
 	// Print the contents of the queue
 	public void Qprint() {
 		Node<E> buf = front;
-		while (buf != rear) {
+		if(buf == null) {
+			System.out.println("Queue is Empty");
+		}
+		else {
+			while (buf != rear) {
+				System.out.println(((Request)buf.getData()).getCourseNumber() + ((Request)buf.getData()).getCourseDept() + ((Request)buf.getData()).getStudentDept() + ((Request)buf.getData()).getStudentName());
+				buf = buf.getNext();
+			}
+			//final line print
 			System.out.println(((Request)buf.getData()).getCourseNumber() + ((Request)buf.getData()).getCourseDept() + ((Request)buf.getData()).getStudentDept() + ((Request)buf.getData()).getStudentName());
-			buf = buf.getNext();
 		}
 	}
 

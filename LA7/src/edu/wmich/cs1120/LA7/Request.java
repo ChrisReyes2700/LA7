@@ -23,11 +23,8 @@ public class Request implements Comparable<Request>{
 		this.GPA_Array = GPA_Array;
 		GPA = GPA_Cal(GPA_Array);
 		setYearsToGraduate(yearsFromGraduation(studentLevel));
-		if (studentDept == courseDept) {
+		if (studentDept.equals(courseDept)) {
 			sameDept = 1;
-		}
-		else {
-			sameDept = 0;
 		}
 	}
 	

@@ -82,31 +82,36 @@ public class Controller implements IController{
 		//print queue before processing
 		System.out.println("<<<<<<<<<<<< Beginning of Queue Contents >>>>>>>>>>>>>>>>>");
 		requestQueue.Qprint();
+		System.out.println("<<<<<<<<<<<< End of Queue Contents >>>>>>>>>>>>>>>>>");
 		
 		//loops until queue is empty
+		System.out.print("\n");
 		while(!requestQueue.isEmpty()) {
 			Request currentReq = requestQueue.dequeue();
 			Course targetCourse = getCourse(currentReq.getCourseDept(), currentReq.getCourseNumber());
 			
-			//if course is full, print that student cannot register
-			if(targetCourse.isFull()) {
-				System.out.println(currentReq.getStudentName() + " cannot register for "
-						+ currentReq.getCourseDept() + " " + currentReq.getCourseNumber());
-			}
 			
-			else {
-				//else reduce class cap and add student to class list 
+			//if course is not full,
+			if(!targetCourse.isFull()) {
+				// reduce class cap and add student to class list 
 				targetCourse.setCapacity(targetCourse.getCapacity() - 1);
 				targetCourse.addStudent(currentReq.getStudentName());
 				//print successful registration
 				System.out.println(currentReq.getStudentName() + " has successfully registered for "
 						+ currentReq.getCourseDept() + " " + currentReq.getCourseNumber());
 			}
+			//else course is full, print that student cannot register
+			else {
+				System.out.println(currentReq.getStudentName() + " cannot register for "
+						+ currentReq.getCourseDept() + " " + currentReq.getCourseNumber());
+			}
 		}
+		System.out.print("\n");
 		
 		//print queue after processing
-		System.out.println("<<<<<<<<<<<< End of Queue Contents >>>>>>>>>>>>>>>>>");
+		System.out.println("<<<<<<<<<<<< Beginning of Queue Contents >>>>>>>>>>>>>>>>>");
 		requestQueue.Qprint();
+		System.out.println("<<<<<<<<<<<< End of Queue Contents >>>>>>>>>>>>>>>>>");
 	}
 
 	@Override
@@ -115,7 +120,7 @@ public class Controller implements IController{
 		Course cour = null;
 		
 		for(int i = 0; i < courses.size(); i++) {
-			if(courses.get(i).getCourseDept() == courseDept && 
+			if(courses.get(i).getCourseDept().equals(courseDept) && 
 					courses.get(i).getCourseNumber() == courseNumber) {
 				cour = courses.get(i);
 			}
