@@ -7,7 +7,7 @@ public class LinkedList<E> {
 
 	// Determine if the LinkedList is empty.
 	public boolean isEmpty() {
-		if (head == tail)
+		if (head == null)
 			return true;
 		else
 			return false;
@@ -28,9 +28,16 @@ public class LinkedList<E> {
 	// get the object in specific position in the LinkedList used to print the
 	// enrolled student contents inside the Course class and return the name
 	public E get(int position) {
-		E res = null;
-		//TODO implement this still
-		return res;
+		E obj;
+		Node<E> headCopy = head;
+		
+		//iterates headCopy to given position through linked list
+		for(int i = 0; i < position; i++) {
+			headCopy = headCopy.getNext();
+		}
+		
+		obj = headCopy.getData();
+		return obj;
 	}
 
 	// Return number of elements in the list.

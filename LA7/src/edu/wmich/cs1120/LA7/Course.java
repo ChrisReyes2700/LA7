@@ -2,11 +2,19 @@ package edu.wmich.cs1120.LA7;
 
 public class Course implements ICourse {
 
-	private String courseDept;	//dunno if this is needed?
-	private int courseNumber;	//dunno if this is needed?
+	private String courseDept;
+	private int courseNumber;
 	
 	private int capacity;
 	private LinkedList<String> students;
+	
+	//constructor
+	public Course(String courseDept, int courseNumber, int capacity) {
+		this.courseDept = courseDept;
+		this.courseNumber = courseNumber;
+		this.capacity = capacity;
+		this.students = new LinkedList<String>();
+	}
 
 	@Override
 	public boolean isFull() {
@@ -39,6 +47,11 @@ public class Course implements ICourse {
 	
 	public int getCapacity() {
 		return this.capacity;
+	}
+	
+	//don't need setter for this?
+	public LinkedList<String> getStudents() {
+		return this.students;
 	}
 	
 	public void setCourseDept(String courseDept) {

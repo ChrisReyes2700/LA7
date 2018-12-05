@@ -1,6 +1,6 @@
 package edu.wmich.cs1120.LA7;
 
-public class Request {
+public class Request implements Comparable<Request>{
 
 	private String studentName;
 	private String studentDept;
@@ -27,19 +27,65 @@ public class Request {
 			sameDept = 1;
 		}
 	}
+	
+	@Override
+	public int compareTo(Request req) {
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>compare departments
+		
+		//higher priority
+		if(this.sameDept == 1 && req.sameDept == 0) {
+			return 1;
+		}
+		//lower priority
+		else if(this.sameDept == 0 && req.sameDept == 1) {
+			return -1;
+		}
+		//same priority
+		else {
+			//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>compare year level
+			
+			//higher priority
+			if(this.yearsToGraduate < req.yearsToGraduate) {
+				return 1;
+			}
+			//lower priority
+			else if(this.yearsToGraduate > req.yearsToGraduate) {
+				return -1;
+			}
+			
+			//same priority
+			else {
+				//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>compare GPA
+				
+				//higher priority
+				if(this.GPA > req.GPA) {
+					return 1;
+				}
+				//lower priority
+				else if(this.GPA < req.GPA) {
+					return -1;
+				}
+				
+				//same priority
+				else {
+					return 0;
+				}
+			}
+		}
+	}
 
 	// Returns number of years to graduation (0 for seniors, 1 for juniors etc.).
 	// This is determined from the
 	// student’s level – senior, junior, etc.
 	public int yearsFromGraduation(String level) {
 		switch (level) {
-		case "senior":
+		case "Senior":
 			return 0;
-		case "junior":
+		case "Junior":
 			return 1;
-		case "sophomore":
+		case "Sophomore":
 			return 2;
-		case "freshman":
+		case "Freshman":
 			return 3;
 		}
 		return -1;
@@ -47,16 +93,21 @@ public class Request {
 
 	// Calculate the GPA for a particular student.
 	private double GPA_Cal(double[][] GPA_Array) {
-		double GPA = 0;
-		for (int i=0;i<GPA_Array.length;i++) 
-			for (int j=0;j<GPA_Array[i].length;j++) {
-			//need to do this still
-			//side note why does this need to be a 2d array???
-			
+		double finalGPA = 0;
+		
+		//Total GPA = (Sum of GPA*Credit)/(Sum of Credit)?
+		double sumGC= 0;
+		double sumCredit = 0;
+		
+		for (int i = 0; i < GPA_Array[0].length; i++) {
+			sumGC += GPA_Array[0][i]*GPA_Array[1][i];
+			sumCredit += GPA_Array[1][i];
 		}
-		return GPA;
+		
+		finalGPA = sumGC/sumCredit;
+		return finalGPA;
 	}
-
+	
 	// Getters for a student’s name and department, and the department and number of
 	// a course
 	public String getStudentName() {
@@ -130,5 +181,6 @@ public class Request {
 	public void setSameDept(int sameDept) {
 		this.sameDept = sameDept;
 	}
+
 
 }

@@ -14,7 +14,7 @@ public class Main {
 		IController control = new Controller(requestQueue, courses, fileIn, fileIn1);
 		control.readCourseFile();
 		control.readRequestFile();
-		control.processRequests();
+		//control.processRequests();
 		control.printClassList();
 				
 	}
