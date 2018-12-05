@@ -26,6 +26,9 @@ public class Request implements Comparable<Request>{
 		if (studentDept == courseDept) {
 			sameDept = 1;
 		}
+		else {
+			sameDept = 0;
+		}
 	}
 	
 	@Override
@@ -33,11 +36,11 @@ public class Request implements Comparable<Request>{
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>compare departments
 		
 		//higher priority
-		if(this.sameDept == 1 && req.sameDept == 0) {
+		if(this.sameDept > req.sameDept) {
 			return 1;
 		}
 		//lower priority
-		else if(this.sameDept == 0 && req.sameDept == 1) {
+		else if(this.sameDept < req.sameDept) {
 			return -1;
 		}
 		//same priority

@@ -29,17 +29,16 @@ public class PriorityQueue<E extends Comparable<E>> {
 		else if(ref.getNext() == null) {
 			if(insert.getData().compareTo(ref.getData()) == 1) {
 				insert.setNext(ref);
-				ref.setNext(insert);
-				sorted = true;
+				rear = ref;
+				front = insert;
 			}
 			//insert is same or lower priority as next ref node
 			else {
-				insert.setNext(ref.getNext().getNext());
-				ref.getNext().setNext(insert);
+				ref.setNext(insert);
 				rear = insert;
-				sorted = true;
 			}
 		}
+		//queue has multiple nodes
 		//insert is higher priority than front
 		else if(insert.getData().compareTo(ref.getData()) == 1) {
 			insert.setNext(ref);
@@ -47,13 +46,13 @@ public class PriorityQueue<E extends Comparable<E>> {
 			sorted = true;
 		}
 		//insert is same priority as front
-		else if(insert.getData().compareTo(ref.getData()) == 0 && ref.getNext() != null) {
+		else if(insert.getData().compareTo(ref.getData()) == 0) {
 			insert.setNext(ref.getNext());
 			ref.setNext(insert);
 			sorted = true;
 		}
 		//insert is lower priority than front
-		else if(insert.getData().compareTo(ref.getData()) == -1 && ref.getNext() != null) {
+		else if(insert.getData().compareTo(ref.getData()) == -1) {
 			
 			//loop until rear is next node
 			while(!sorted && ref.getNext() != rear) {
@@ -163,9 +162,9 @@ public class PriorityQueue<E extends Comparable<E>> {
 
 	// Print the contents of the queue
 	public void Qprint() {
-		Node<E> buf = rear;
-		while (buf != front) {
-			System.out.println(buf.toString());
+		Node<E> buf = front;
+		while (buf != rear) {
+			System.out.println(((Request)buf.getData()).getCourseNumber() + ((Request)buf.getData()).getCourseDept() + ((Request)buf.getData()).getStudentDept() + ((Request)buf.getData()).getStudentName());
 			buf = buf.getNext();
 		}
 	}
