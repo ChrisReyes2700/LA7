@@ -1,1 +1,1 @@
-# LA7
+Authors: Austin Wojciechowski, Chris Reyes
