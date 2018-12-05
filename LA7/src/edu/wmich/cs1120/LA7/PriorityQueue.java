@@ -20,20 +20,40 @@ public class PriorityQueue<E extends Comparable<E>> {
 		Node<E> ref = front;
 		Node<E> insert = new Node<E>(data);
 		
+		//insert is the first node
+		if(isEmpty()) {
+			front = insert;
+			rear = front;
+		}
+		//ref is the only node
+		else if(ref.getNext() == null) {
+			if(insert.getData().compareTo(ref.getData()) == 1) {
+				insert.setNext(ref);
+				ref.setNext(insert);
+				sorted = true;
+			}
+			//insert is same or lower priority as next ref node
+			else {
+				insert.setNext(ref.getNext().getNext());
+				ref.getNext().setNext(insert);
+				rear = insert;
+				sorted = true;
+			}
+		}
 		//insert is higher priority than front
-		if(insert.getData().compareTo(ref.getData()) == 1) {
-			ref = insert.getNext();
+		else if(insert.getData().compareTo(ref.getData()) == 1) {
+			insert.setNext(ref);
 			front = insert;
 			sorted = true;
 		}
 		//insert is same priority as front
-		else if(insert.getData().compareTo(ref.getData()) == 0) {
+		else if(insert.getData().compareTo(ref.getData()) == 0 && ref.getNext() != null) {
 			insert.setNext(ref.getNext());
 			ref.setNext(insert);
 			sorted = true;
 		}
 		//insert is lower priority than front
-		else if(insert.getData().compareTo(ref.getData()) == -1) {
+		else if(insert.getData().compareTo(ref.getData()) == -1 && ref.getNext() != null) {
 			
 			//loop until rear is next node
 			while(!sorted && ref.getNext() != rear) {
