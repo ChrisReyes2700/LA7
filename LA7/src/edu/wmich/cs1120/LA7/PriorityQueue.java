@@ -1,13 +1,13 @@
 package edu.wmich.cs1120.LA7;
 
-public class PriorityQueue<E> {
+public class PriorityQueue<E extends Comparable<E>> {
 
 	private Node<E> front;
 	private Node<E> rear;
 
 	// Determine if the priority queue is empty.
 	public boolean isEmpty() {
-		if (front == rear)
+		if (front == null)
 			return true;
 		else
 			return false;
@@ -17,11 +17,67 @@ public class PriorityQueue<E> {
 	// governing priority.
 	public void enqueue(E data) {
 		boolean sorted = false;
-		Node<E> rearcopy = rear;
-		rear = new Node<E>(data);
-		rear.setNext(rearcopy);
-
+		Node<E> ref = front;
+		Node<E> insert = new Node<E>(data);
 		
+		//insert is higher priority than front
+		if(insert.getData().compareTo(ref.getData()) == 1) {
+			ref = insert.getNext();
+			front = insert;
+			sorted = true;
+		}
+		//insert is same priority as front
+		else if(insert.getData().compareTo(ref.getData()) == 0) {
+			insert.setNext(ref.getNext());
+			ref.setNext(insert);
+			sorted = true;
+		}
+		//insert is lower priority than front
+		else if(insert.getData().compareTo(ref.getData()) == -1) {
+			
+			//loop until rear is next node
+			while(!sorted && ref.getNext() != rear) {
+				//insert is higher priority than next ref node
+				if(insert.getData().compareTo(ref.getNext().getData()) == 1) {
+					insert.setNext(ref.getNext());
+					ref.setNext(insert);
+					sorted = true;
+				}
+				//insert is same priority as next ref node
+				else if(insert.getData().compareTo(ref.getNext().getData()) == 0) {
+					insert.setNext(ref.getNext().getNext());
+					ref.getNext().setNext(insert);
+					sorted = true;
+				}
+				//insert is lower priority than next ref node
+				else if(insert.getData().compareTo(ref.getNext().getData()) == -1) {
+					ref = ref.getNext();	//move to next node
+				}
+			}
+			
+			//if while loop runs and still not sorted
+			if(!sorted && ref.getNext() == rear) {
+				//insert is higher priority than rear
+				if(insert.getData().compareTo(ref.getNext().getData()) == 1) {
+					insert.setNext(ref.getNext());
+					ref.setNext(insert);
+					sorted = true;
+				}
+				//insert is same or lower priority as next ref node
+				else {
+					insert.setNext(ref.getNext().getNext());
+					ref.getNext().setNext(insert);
+					rear = insert;
+					sorted = true;
+				}
+			}
+			else {
+				//error, no other cases
+			}
+		}
+		
+		
+		/**
 		//I think this works, have not tested however
 		Node<E> sortingNode = rear;
 		while (sorted = false) {
@@ -64,6 +120,10 @@ public class PriorityQueue<E> {
 				sortingNode = sortingNode.getNext();
 			}
 		}
+		
+		**/
+		
+		
 
 	}
 
@@ -72,13 +132,12 @@ public class PriorityQueue<E> {
 		Node<E> rearCopy = rear;
 		Node<E> frontCopy = front;
 
-		while (rearCopy.getNext() != front) {
-			rearCopy = rearCopy.getNext();
+		front = front.getNext();
+		//in case of one node, sets front to null and rear to front
+		if(frontCopy == rearCopy) {
+			rear = front;
 		}
-
-		front = rearCopy;
-		front.setNext(null);
-
+		
 		return frontCopy.getData();
 	}
 
