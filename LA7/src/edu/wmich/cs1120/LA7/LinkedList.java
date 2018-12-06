@@ -5,7 +5,12 @@ public class LinkedList<E> {
 	private Node<E> head;
 	private Node<E> tail;
 
-	// Determine if the LinkedList is empty.
+	
+	/**
+	 * Determine if the LinkedList is empty.
+	 * @return	true if empty false if not
+	 */
+	 
 	public boolean isEmpty() {
 		if (head == null)
 			return true;
@@ -13,7 +18,11 @@ public class LinkedList<E> {
 			return false;
 	}
 
-	// Add object received to the linked list if he/she has the priority.
+	/**
+	 * Add object received to the linked list if he/she has the priority
+	 * @param item	the object to be added to the list
+	 */
+	
 	public void add(E item) {
 		if (isEmpty()) {
 			Node<E> newNode = new Node<>(item);
@@ -25,8 +34,12 @@ public class LinkedList<E> {
 		}
 	}
 
-	// get the object in specific position in the LinkedList used to print the
-	// enrolled student contents inside the Course class and return the name
+	/**
+	 *  get the object in specific position in the LinkedList used to print the
+	 *  enrolled student contents inside the Course class and return the name
+	 * @param position index of the linked list to return the data
+	 * @return	data at the specified position
+	 */
 	public E get(int position) {
 		E obj;
 		Node<E> headCopy = head;
@@ -40,7 +53,10 @@ public class LinkedList<E> {
 		return obj;
 	}
 
-	// Return number of elements in the list.
+	/**
+	 *  Return number of elements in the list.
+	 * @return total count of elements in the linked list
+	 */
 	public int size() {
 		int count = 0;
 		Node<E> headCopy = head;
@@ -51,6 +67,7 @@ public class LinkedList<E> {
 		}
 
 		return count;
-	}
 
+	}
 }
+	

@@ -5,7 +5,10 @@ public class PriorityQueue<E extends Comparable<E>> {
 	private Node<E> front;
 	private Node<E> rear;
 
-	// Determine if the priority queue is empty.
+	/**
+	 *  Determine if the priority queue is empty.
+	 * @return true if empty false if not empty
+	 */
 	public boolean isEmpty() {
 		if (front == null)
 			return true;
@@ -13,8 +16,11 @@ public class PriorityQueue<E extends Comparable<E>> {
 			return false;
 	}
 
-	// Add object received to the priority queue taking into consideration the rules
-	// governing priority.
+	/**
+	 *  Add object received to the priority queue taking into consideration the rules
+	 *  governing priority
+	 * @param data the data to be stored in the new node
+	 */
 	public void enqueue(E data) {
 		Node<E> ref = front;
 		Node<E> insert = new Node<E>(data);
@@ -94,7 +100,10 @@ public class PriorityQueue<E extends Comparable<E>> {
 		}
 	}
 
-	// Remove the next object to be processed from the priority queue.
+	/**
+	 * Remove the next object to be processed from the priority queue.
+	 * @return data at the front of the queue
+	 */
 	public E dequeue() {
 		Node<E> rearCopy = rear;
 		Node<E> frontCopy = front;
@@ -108,7 +117,9 @@ public class PriorityQueue<E extends Comparable<E>> {
 		return frontCopy.getData();
 	}
 
-	// Print the contents of the queue
+	/**
+	 *  Print the contents of the queue
+	 */
 	public void Qprint() {
 		Node<E> buf = front;
 		if(buf == null) {
@@ -116,11 +127,11 @@ public class PriorityQueue<E extends Comparable<E>> {
 		}
 		else {
 			while (buf != rear) {
-				System.out.println(((Request)buf.getData()).getCourseNumber() + ((Request)buf.getData()).getCourseDept() + ((Request)buf.getData()).getStudentDept() + ((Request)buf.getData()).getStudentName());
+				System.out.println(((Request)buf.getData()).getCourseNumber() + " " +((Request)buf.getData()).getCourseDept() + " " + ((Request)buf.getData()).getStudentDept() + " " + ((Request)buf.getData()).getStudentName());
 				buf = buf.getNext();
 			}
 			//final line print
-			System.out.println(((Request)buf.getData()).getCourseNumber() + ((Request)buf.getData()).getCourseDept() + ((Request)buf.getData()).getStudentDept() + ((Request)buf.getData()).getStudentName());
+			System.out.println(((Request)buf.getData()).getCourseNumber() + " " + ((Request)buf.getData()).getCourseDept() + " " + ((Request)buf.getData()).getStudentDept() + " " + ((Request)buf.getData()).getStudentName());
 		}
 	}
 

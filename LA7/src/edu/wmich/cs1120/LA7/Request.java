@@ -12,7 +12,15 @@ public class Request implements Comparable<Request>{
 	private int yearsToGraduate;
 	private int sameDept = 0;	//1 = true 0 = false for comparing in priorityqueue
 	
-	// Constructor
+	/**
+	 *  Constructor
+	 * @param studentName name of student
+	 * @param studentDept department major the student is
+	 * @param studentLevel students class level i.e. freshman
+	 * @param courseDept course student is trying to register for
+	 * @param courseNumber number of the course
+	 * @param GPA_Array gpa data values
+	 */
 	public Request(String studentName, String studentDept, String studentLevel, String courseDept, int courseNumber,
 			double[][] GPA_Array) {
 		this.studentName = studentName;
@@ -27,7 +35,9 @@ public class Request implements Comparable<Request>{
 			sameDept = 1;
 		}
 	}
-	
+	/**
+	 * Compares one request object to another and determines what one has priorty over the other
+	 */
 	@Override
 	public int compareTo(Request req) {
 		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>compare departments
@@ -74,9 +84,11 @@ public class Request implements Comparable<Request>{
 		}
 	}
 
-	// Returns number of years to graduation (0 for seniors, 1 for juniors etc.).
-	// This is determined from the
-	// student’s level – senior, junior, etc.
+	/**
+	 * Converts text student year to a number value of how many years left to graduate 
+	 * @param level string value of student year
+	 * @return number of years to graduation (0 for seniors, 1 for juniors etc.).
+	 */
 	public int yearsFromGraduation(String level) {
 		switch (level) {
 		case "Senior":
@@ -91,7 +103,11 @@ public class Request implements Comparable<Request>{
 		return -1;
 	}
 
-	// Calculate the GPA for a particular student.
+	/**
+	 *  Calculate the GPA for a particular student.
+	 * @param GPA_Array [Grade recieved][Credit earend]  by student
+	 * @return the GPA of the student
+	 */
 	private double GPA_Cal(double[][] GPA_Array) {
 		double finalGPA = 0;
 		
