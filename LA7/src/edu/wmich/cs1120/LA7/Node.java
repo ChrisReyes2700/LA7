@@ -13,7 +13,7 @@ public class Node<E> implements INode<E>{
 		next = null;
 	}				
 	/**
-	 * insert a new node before a specified exisisting node
+	 * insert a new node before a specified existing node
 	 * @param dataValue	value to store inside the node
 	 * @param nextNode node thats after the new node
 	 */

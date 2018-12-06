@@ -10,10 +10,11 @@ public class Request implements Comparable<Request>{
 	private double[][] GPA_Array;
 	private double GPA;
 	private int yearsToGraduate;
-	private int sameDept = 0;	//1 = true 0 = false for comparing in priorityqueue
+	private int sameDept = 0;	//1 = true 0 = false for comparing in priority queue
 	
 	/**
-	 *  Constructor
+	 * Constructor that sets each private variable to the input variables
+	 * 
 	 * @param studentName name of student
 	 * @param studentDept department major the student is
 	 * @param studentLevel students class level i.e. freshman
@@ -36,7 +37,8 @@ public class Request implements Comparable<Request>{
 		}
 	}
 	/**
-	 * Compares one request object to another and determines what one has priorty over the other
+	 * Compares one request object to another and determines what one has priority over the other
+	 * @param req request that this request object is being compared to
 	 */
 	@Override
 	public int compareTo(Request req) {
@@ -105,13 +107,13 @@ public class Request implements Comparable<Request>{
 
 	/**
 	 *  Calculate the GPA for a particular student.
-	 * @param GPA_Array [Grade recieved][Credit earend]  by student
+	 * @param GPA_Array [Grade received][Credit earned]  by student
 	 * @return the GPA of the student
 	 */
 	private double GPA_Cal(double[][] GPA_Array) {
 		double finalGPA = 0;
 		
-		//Total GPA = (Sum of GPA*Credit)/(Sum of Credit)?
+		//Total GPA = (Sum of GPA*Credit)/(Sum of Credit)
 		double sumGC= 0;
 		double sumCredit = 0;
 		
@@ -122,6 +124,13 @@ public class Request implements Comparable<Request>{
 		
 		finalGPA = sumGC/sumCredit;
 		return finalGPA;
+	}
+	
+	/**
+	 * Returns "Request@" then the request id 
+	 */
+	public String toString() {
+		return this.getClass().getSimpleName() + '@' + Integer.toHexString(hashCode());
 	}
 	
 	// Getters for a student’s name and department, and the department and number of

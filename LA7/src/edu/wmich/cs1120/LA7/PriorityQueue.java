@@ -6,7 +6,7 @@ public class PriorityQueue<E extends Comparable<E>> {
 	private Node<E> rear;
 
 	/**
-	 *  Determine if the priority queue is empty.
+	 * Determine if the priority queue is empty.
 	 * @return true if empty false if not empty
 	 */
 	public boolean isEmpty() {
@@ -17,8 +17,8 @@ public class PriorityQueue<E extends Comparable<E>> {
 	}
 
 	/**
-	 *  Add object received to the priority queue taking into consideration the rules
-	 *  governing priority
+	 * Add object received to the priority queue taking into consideration the rules 
+	 * governing priority
 	 * @param data the data to be stored in the new node
 	 */
 	public void enqueue(E data) {
@@ -118,7 +118,7 @@ public class PriorityQueue<E extends Comparable<E>> {
 	}
 
 	/**
-	 *  Print the contents of the queue
+	 * Print the contents of the queue
 	 */
 	public void Qprint() {
 		Node<E> buf = front;
@@ -127,11 +127,11 @@ public class PriorityQueue<E extends Comparable<E>> {
 		}
 		else {
 			while (buf != rear) {
-				System.out.println(((Request)buf.getData()).getCourseNumber() + " " +((Request)buf.getData()).getCourseDept() + " " + ((Request)buf.getData()).getStudentDept() + " " + ((Request)buf.getData()).getStudentName());
+				System.out.println(buf.getData().toString());
 				buf = buf.getNext();
 			}
 			//final line print
-			System.out.println(((Request)buf.getData()).getCourseNumber() + " " + ((Request)buf.getData()).getCourseDept() + " " + ((Request)buf.getData()).getStudentDept() + " " + ((Request)buf.getData()).getStudentName());
+			System.out.println(buf.getData().toString());
 		}
 	}
 

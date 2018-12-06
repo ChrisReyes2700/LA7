@@ -5,7 +5,6 @@ public class LinkedList<E> {
 	private Node<E> head;
 	private Node<E> tail;
 
-	
 	/**
 	 * Determine if the LinkedList is empty.
 	 * @return	true if empty false if not
@@ -54,7 +53,7 @@ public class LinkedList<E> {
 	}
 
 	/**
-	 *  Return number of elements in the list.
+	 * Return number of elements in the list.
 	 * @return total count of elements in the linked list
 	 */
 	public int size() {

@@ -10,6 +10,14 @@ public class Controller implements IController{
 	private BufferedReader fileIn;
 	private BufferedReader fileIn1;
 	
+	/**
+	 * Constructor that sets each private variable to the input variables
+	 * 
+	 * @param requestQueue priority queue to be filled with requests
+	 * @param courses linked list to be filled with courses
+	 * @param fileIn course text file to be read for each course
+	 * @param fileIn1 request text file to be read for each request
+	 */
 	public Controller(PriorityQueue<Request> requestQueue, LinkedList<Course> courses,
 			BufferedReader fileIn, BufferedReader fileIn1) {
 		this.requestQueue = requestQueue;
@@ -18,7 +26,10 @@ public class Controller implements IController{
 		this.fileIn1 = fileIn1;
 	}
 	
-	
+	/**
+	 * Reads each line in the course file then creates a new course obj with the dept, course number, capacity found from the line in the file. Adds that new course to the linked list 
+	 * and loops until the end of the file then closes the reader.
+	 */
 	@Override
 	public void readCourseFile() {
 		try {
@@ -38,6 +49,10 @@ public class Controller implements IController{
 		}
 	}
 
+	/**
+	 * Reads each line in the request file then creates a new request obj with the student name, student dept, student level,
+	 * course dept, and course number found from the line in the file. Adds that new request to the priority queue and loops until the end of the file then closes the reader.
+	 */
 	@Override
 	public void readRequestFile() {
 		try {
@@ -63,20 +78,28 @@ public class Controller implements IController{
 				  }  
 				  
 				  Request r = new Request(studentName, studentDept, studentLevel, courseDept, courseNumber, GPA_Array);
-				  
-				 addRequest(r);
+				  addRequest(r);
 			  }
+			  fileIn1.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
+	/**
+	 * Enqueues the input request into the priority queue
+	 * @param req request to be enqueued
+	 */
 	@Override
 	public void addRequest(Request req) {
 		requestQueue.enqueue(req);
 	}
 
+	/**
+	 * Prints the queue before processing. Dequeues each request, prints it then checks if the class is full. If not, prints that the students has been registered, otherwise, the student 
+	 * cannot be registered. Loops until the queue is empty then reprints the now empty queue.
+	 */
 	@Override
 	public void processRequests() {
 		//print queue before processing
@@ -90,6 +113,7 @@ public class Controller implements IController{
 			Request currentReq = requestQueue.dequeue();
 			Course targetCourse = getCourse(currentReq.getCourseDept(), currentReq.getCourseNumber());
 			
+			System.out.println(currentReq.toString());
 			
 			//if course is not full,
 			if(!targetCourse.isFull()) {
@@ -99,7 +123,7 @@ public class Controller implements IController{
 				//print successful registration
 				System.out.println(currentReq.getStudentName() + " has successfully registered for "
 						+ currentReq.getCourseDept() + " " + currentReq.getCourseNumber());
-			}
+		}
 			//else course is full, print that student cannot register
 			else {
 				System.out.println(currentReq.getStudentName() + " cannot register for "
@@ -114,6 +138,11 @@ public class Controller implements IController{
 		System.out.println("<<<<<<<<<<<< End of Queue Contents >>>>>>>>>>>>>>>>>");
 	}
 
+	/**
+	 * Uses the input course dept and course number to return the matching course obj. If the course is not found, returns null.
+	 * @param courseDept desired course dept
+	 * @param courseNumber desired course number
+	 */
 	@Override
 	public Course getCourse(String courseDept, int courseNumber) {
 		//initialized to null
@@ -129,22 +158,18 @@ public class Controller implements IController{
 		return cour;
 	}
 
+	/**
+	 * Prints the course dept and course number then prints each student in the class. If there are no students, it prints that the class is empty.
+	 */
 	@Override
 	public void printClassList() {
 		
 		for(int i = 0; i < courses.size(); i++) {
+			//prints specific course dept and number
 			System.out.println("\nClasslist for " + courses.get(i).getCourseDept() + " " 
 					+ courses.get(i).getCourseNumber());
-			
-			if(!courses.get(i).getStudents().isEmpty()) {
-				for(int j = 0; j < courses.get(i).getStudents().size(); j++) {
-					System.out.println(courses.get(i).getStudents().get(j));
-				}
-			}
-			
-			else {
-				System.out.println("Class is empty.");
-			}
+			//prints class list of specific course
+			courses.get(i).printClassList();
 		}
 		
 	}
